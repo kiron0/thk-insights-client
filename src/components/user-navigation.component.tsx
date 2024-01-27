@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
 import AnimationWrapper from "../common/page-animation";
@@ -11,6 +12,7 @@ export default function UserNavigationPanel() {
           const handleSignOutUser = () => {
                     removeFromSession("user");
                     setUserAuth(UserContextInitialValue);
+                    toast.success('Signed out successfully!');
           }
 
           return (

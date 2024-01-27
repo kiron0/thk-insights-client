@@ -22,6 +22,7 @@ export default function UserAuthForm({ type }: UserAuthFormProps) {
                               .then(({ data }) => {
                                         storeInSession("user", JSON.stringify(data?.data));
                                         setUserAuth(data?.data);
+                                        toast.success(data?.message);
                               })
                               .catch(err => {
                                         toast.error(err.response.data.message);

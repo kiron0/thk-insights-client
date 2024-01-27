@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, createContext, useEffect, useState } from "re
 import { Route, Routes } from "react-router-dom";
 import { lookInSession } from "./common/session";
 import Navbar from "./components/navbar.component";
+import Editor from "./pages/editor.pages";
 import UserAuthForm from "./pages/userAuthForm.page";
 import { UserContextInitialType, UserContextInitialValue } from "./types";
 
@@ -19,12 +20,12 @@ function App() {
     const userInSession = lookInSession('user');
 
     userInSession ? setUserAuth(JSON.parse(userInSession)) : setUserAuth(UserContextInitialValue);
-
   }, []);
 
   return (
     <UserContext.Provider value={{ userAuth, setUserAuth }}>
       <Routes>
+        <Route path="/editor" element={<Editor />} />
         <Route path="/" element={<Navbar />}>
           <Route path="sign-in" element={<UserAuthForm type="sign-in" />} />
           <Route path="/sign-up" element={<UserAuthForm type="sign-up" />} />
