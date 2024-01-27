@@ -1,4 +1,5 @@
+import { blogStructure, EditorContextDefault } from './EditorContext';
 import { UserContextInitialType, UserContextInitialValue } from './UserContext';
 
-export { UserContextInitialValue, type UserContextInitialType };
+export { blogStructure, UserContextInitialValue, type EditorContextDefault, type UserContextInitialType };
 
