@@ -10,14 +10,14 @@ export const EditorContext = createContext<EditorContextDefault>({
           setBlog: () => { },
           editorState: 'editor',
           setEditorState: () => { },
-          textEditor: { isReady: false },
+          textEditor: null,
           setTextEditor: () => { },
 });
 
 export default function Editor() {
           const [blog, setBlog] = useState(blogStructure);
           const [editorState, setEditorState] = useState<string>('editor');
-          const [textEditor, setTextEditor] = useState<{ isReady: boolean }>({ isReady: false });
+          const [textEditor, setTextEditor] = useState(null);
 
           const { userAuth: { accessToken } } = useContext(UserContext);
 

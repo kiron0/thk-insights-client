@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { OutputBlockData } from "@editorjs/editorjs";
 import { Dispatch, SetStateAction } from "react";
 
 export const blogStructure = {
           title: '',
           banner: '',
-          content: [] || '',
+          content: [] as OutputBlockData[],
           tags: [],
           des: '',
           author: { personal_info: {} }
@@ -19,6 +20,6 @@ export type EditorContextDefault = {
           setBlog: Dispatch<SetStateAction<typeof blogStructure>>,
           editorState: string,
           setEditorState: Dispatch<SetStateAction<string>>
-          textEditor: { isReady: boolean },
+          textEditor: null,
           setTextEditor: Dispatch<SetStateAction<any>>
 }

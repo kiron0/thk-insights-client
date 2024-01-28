@@ -1,4 +1,4 @@
-import EditorJS from "@editorjs/editorjs";
+import EditorJS, { OutputData } from "@editorjs/editorjs";
 import { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -13,12 +13,14 @@ export default function BlogEditor() {
           const { blog, blog: { title, banner, content, tags, des }, setBlog, textEditor, setTextEditor, setEditorState } = useContext(EditorContext)
 
           useEffect(() => {
-                    setTextEditor(new EditorJS({
+                    const editor = new EditorJS({
                               holder: 'textEditor',
-                              data: "",
+                              data: {} as OutputData || content,
                               tools: tools,
                               placeholder: 'Let\'s write an awesome story!',
-                    }))
+                    });
+
+                    setTextEditor(editor);
           }, [])
 
           const handleBannerUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,18 +60,17 @@ export default function BlogEditor() {
                     //           return toast.error('Please enter a title');
                     // }
 
-                    if (textEditor.isReady) {
-                              textEditor.save().then((data) => {
-                                        console.log(data);
-                                        if (data.blocks.length > 0) {
-                                                  setBlog({ ...blog, content: data });
-                                                  setEditorState('publish');
-                                        } else {
-                                                  return toast.error('Please write something');
-                                        }
-                              }).catch((err: Error) => {
-                                        toast.error(err.message);
-                              })
+                    if (textEditor) {
+                              textEditor.save()
+                                        .then((outputData: OutputData) => {
+                                                  console.log('Article data: ', outputData);
+                                                  if (outputData.blocks.length > 0) {
+                                                            setBlog({ ...blog, content: outputData.blocks });
+                                                            setEditorState('preview');
+                                                  }
+                                        }).catch((error) => {
+                                                  console.log('Saving failed: ', error)
+                                        })
                     }
           }
 
